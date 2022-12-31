@@ -32,4 +32,5 @@ class AsyncRateLimiter(RateLimiter):
                     await asyncio.sleep(sleeptime)
             return self
 
-    __aexit__ = asyncio.coroutine(RateLimiter.__exit__)
+    # backward behavior for python 3.5 - 3.10; no need for decorator if deprecated in python > 3.11
+    __aexit__ = asyncio.coroutine(RateLimiter.__exit__) if hasattr(asyncio, 'coroutine') else RateLimiter.__exit__
