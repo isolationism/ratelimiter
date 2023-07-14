@@ -5,6 +5,11 @@ RateLimiter
 
 Simple Python module providing rate limiting.
 
+Fork
+----
+Changes according to the comments in this thread: `https://github.com/RazerM/ratelimiter/issues/15 <https://github.com/RazerM/ratelimiter/issues/15>`_
+
+
 Overview
 --------
 

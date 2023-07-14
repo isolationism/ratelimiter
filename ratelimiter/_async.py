@@ -23,12 +23,15 @@ class AsyncRateLimiter(RateLimiter):
             # We want to ensure that no more than max_calls were run in the allowed
             # period. For this, we store the last timestamps of each call and run
             # the rate verification upon each __enter__ call.
-            if len(self.calls) >= self.max_calls:
-                until = time.time() + self.period - self._timespan
-                if self.callback:
-                    asyncio.ensure_future(self.callback(until))
+            
+            if len(self.calls) == self.max_calls:
+                until = self.period + self.calls[0]
                 sleeptime = until - time.time()
+
                 if sleeptime > 0:
+                    if self.callback:
+                        asyncio.ensure_future(self.callback(until))
+
                     await asyncio.sleep(sleeptime)
             return self
 
