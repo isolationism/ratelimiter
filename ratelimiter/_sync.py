@@ -53,8 +53,6 @@ class RateLimiter(object):
                 until = self.period + self.calls[0]
                 sleeptime = until - time.time()
                 
-                print('sleeptime', sleeptime, self.calls[0])
-
                 if sleeptime > 0:
                     if self.callback:
                         t = threading.Thread(target=self.callback, args=(until,))
